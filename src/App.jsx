@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Products from "./pages/Products";
@@ -10,103 +11,121 @@ import Orders from "./pages/Orders";
 import Admin from "./pages/Admin";
 import Payment from "./pages/Payment";
 
-
 function App() {
   const [cart, setCart] = useState([]);
   const [loggedUser, setLoggedUser] = useState(null);
-  const [showCheckout, setShowCheckout] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
-
-  // Temporary (Checkout.jsx-ku thevai)
   const [orders, setOrders] = useState([]);
 
-  // Remove product
+  const [customerDetails, setCustomerDetails] = useState({
+    name: "",
+    address: "",
+    phone: "",
+  });
+
   const removeFromCart = (index) => {
-    const updatedCart = cart.filter((_, i) => i !== index);
-    setCart(updatedCart);
-  };
-
-  // Increase quantity
-  const increaseQuantity = (id) => {
-    const updatedCart = cart.map((item) =>
-      item.id === id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
+    setCart((prevCart) =>
+      prevCart.filter((_, i) => i !== index)
     );
-
-    setCart(updatedCart);
   };
 
-  // Decrease quantity
-  const decreaseQuantity = (id) => {
-    const updatedCart = cart
-      .map((item) =>
+  const increaseQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
         item.id === id
-          ? { ...item, quantity: item.quantity - 1 }
+          ? { ...item, quantity: item.quantity + 1 }
           : item
       )
-      .filter((item) => item.quantity > 0);
-
-    setCart(updatedCart);
+    );
   };
 
-  const [customerDetails, setCustomerDetails] = useState({
-  name: "",
-  address: "",
-  phone: ""
-});
+  const decreaseQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
 
   return (
-  <div className="App">
+    <div className="App">
       <Navbar
         cart={cart}
         loggedUser={loggedUser}
         setLoggedUser={setLoggedUser}
       />
 
-      <h1>Welcome to Ecommerce Website 🛒</h1>
+      <Routes>
+        <Route
+          path="/"
+          element={<h1>Welcome to Ecommerce Website 🛒</h1>}
+        />
 
-      <Register />
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-      <Login setLoggedUser={setLoggedUser} />
+        <Route
+          path="/login"
+          element={<Login setLoggedUser={setLoggedUser} />}
+        />
 
-      <Products
-        cart={cart}
-        setCart={setCart}
-      />
+        <Route
+          path="/products"
+          element={
+            <Products cart={cart} setCart={setCart} />
+          }
+        />
 
-      <Cart
-        cart={cart}
-        removeFromCart={removeFromCart}
-        increaseQuantity={increaseQuantity}
-        decreaseQuantity={decreaseQuantity}
-        setShowCheckout={setShowCheckout}
-      />
+        <Route
+          path="/cart"
+          element={
+            <Cart
+              cart={cart}
+              removeFromCart={removeFromCart}
+              increaseQuantity={increaseQuantity}
+              decreaseQuantity={decreaseQuantity}
+            />
+          }
+        />
 
-      {showCheckout && (
-       <Checkout
-  cart={cart}
-  setShowCheckout={setShowCheckout}
-  setShowPayment={setShowPayment}
-  setCustomerDetails={setCustomerDetails}
-/>
-      )}
-      {showPayment && (
-  <Payment
-  cart={cart}
-  orders={orders}
-  setOrders={setOrders}
-  setCart={setCart}
-  setShowCheckout={setShowCheckout}
-  setShowPayment={setShowPayment}
-  customerDetails={customerDetails}
-/>
-)}
-      <Orders />
+        <Route
+          path="/checkout"
+          element={
+            <Checkout
+              cart={cart}
+              setCustomerDetails={setCustomerDetails}
+            />
+          }
+        />
 
-<hr />
+        <Route
+          path="/payment"
+          element={
+            <Payment
+              cart={cart}
+              orders={orders}
+              setOrders={setOrders}
+              setCart={setCart}
+              customerDetails={customerDetails}
+            />
+          }
+        />
 
-<Admin />
+        <Route
+          path="/orders"
+          element={<Orders orders={orders} />}
+        />
+
+        <Route
+          path="/admin"
+          element={<Admin />}
+        />
+      </Routes>
     </div>
   );
 }
