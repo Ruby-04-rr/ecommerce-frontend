@@ -1,0 +1,71 @@
+.admin-container{
+    width:90%;
+    max-width:700px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.admin-container h2,
+.admin-container h3{
+    text-align:center;
+    color:#131921;
+    margin-bottom:20px;
+}
+
+.admin-container input,
+.admin-container textarea{
+    width:100%;
+    margin:12px 0;
+}
+
+.save-btn{
+    width:100%;
+    background:#28a745;
+    margin-top:15px;
+}
+
+.save-btn:hover{
+    background:#218838;
+}
+
+.admin-product-card{
+    background:#f8f9fa;
+    padding:20px;
+    margin:20px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+.edit-btn{
+    background:#ff9900;
+    margin-right:10px;
+}
+
+.edit-btn:hover{
+    background:#e68a00;
+}
+
+.delete-btn{
+    background:#dc3545;
+}
+
+.delete-btn:hover{
+    background:#b02a37;
+}
+
+
+@media (max-width:768px){
+
+.admin-container{
+    width:95%;
+    padding:20px;
+}
+
+.admin-product-card{
+    padding:15px;
+}
+
+}

@@ -1,0 +1,48 @@
+.payment-container{
+    width:500px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+.payment-container h2{
+    color:#131921;
+    margin-bottom:20px;
+}
+
+.payment-container h3{
+    color:#28a745;
+    margin-bottom:20px;
+}
+
+.payment-container h4{
+    margin-bottom:20px;
+}
+
+.payment-container label{
+    display:block;
+    text-align:left;
+    margin:15px 0;
+    font-size:18px;
+}
+
+.payment-container input[type="radio"]{
+    width:auto;
+    margin-right:10px;
+}
+
+.payment-container button{
+    width:100%;
+    margin-top:20px;
+    background:#ff9900;
+    padding:12px;
+    font-size:18px;
+}
+
+.payment-container button:hover{
+    background:#e68a00;
+}
+
